@@ -14,6 +14,8 @@
     align-items: center;
     padding-left: 10px;
     padding-right: 10px;
+    position: fixed;
+    top: 0;
 }
 
 .logo-container, .returns-container, .cart-container{
@@ -67,7 +69,7 @@
 
 input:focus{
     border: none;
-    outline-color: rgb(255, 145, 0);
+    outline: 2px solid rgb(255, 145, 0);
     border-radius: 5px 0 0 5px;
 }
 
@@ -104,9 +106,16 @@ input:focus{
 .cart-p1{
     color: orange;
     font-weight: 600;
+}
+
+.quantity-container{
+    width: 100%;
     position: relative;
     top: -9px;
-    left: 27px;
+    left: 31px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cart-p2{
@@ -127,22 +136,37 @@ input:focus{
     display: grid;
     gap: 0;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    margin-top: 60px;
 }
 
 .item-container{
-    border: 1px solid #ebebeb;
+    border-bottom: 1px solid #ebebeb;
+    border-right: 1px solid #ebebeb;
     width: 100%;
     height: 30rem;
-    padding: 2.2rem 1.8rem 1.8rem 1.8rem;
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
 }
 
-.item-img{
-    width: 100%;
+.img-container {
+    height: 180px;
     margin-bottom: 1.3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.item-img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .item-name{
+    height: 36px;
     margin-bottom: 0.7rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .rating{
@@ -171,11 +195,12 @@ input:focus{
     padding: 0.2rem 0.2rem;
     border-radius: 7px;
     font-size: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
+    cursor: pointer;
 }
 
 select:focus {
-    outline-color: rgb(255, 145, 0);
+    outline: 2px solid rgb(255, 145, 0);
 }
 
 .add-to-cart-btn{
