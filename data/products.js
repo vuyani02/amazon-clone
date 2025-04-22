@@ -1,4 +1,4 @@
-const items = [
+export const items = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     image: "images/products/athletic-cotton-socks-6-pairs.jpg",
@@ -655,6 +655,20 @@ const items = [
       "hoodies",
       "apparel",
       "mens"
+    ]
+  },
+  {
+    id: "1",
+    image: "images/products/umbrella.jpg",
+    name: "Short umbrella",
+    rating: {
+      stars: 5,
+      count: 6157
+    },
+    priceCents: 200,
+    keywords: [
+      "umbrella",
+      "Short umbrella"
     ]
   }
 ];

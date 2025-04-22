@@ -1,6 +1,7 @@
-let itemsStr = ''
+import { items } from "../data/products.js"
+import { cart, addIterm }  from "../data/cart.js"
 
-const cart = []
+let itemsStr = ''
 
 items.forEach((item) => {
     itemsStr += `<div class="item-container">
@@ -18,43 +19,30 @@ items.forEach((item) => {
 
                 <p class="price">$${(item.priceCents/100).toFixed(2)}</p>
 
-                <select class="quantity">
-                    <option value="">1</option>
-                    <option value="">2</option>
-                    <option value="">3</option>
-                    <option value="">4</option>
-                    <option value="">5</option>
-                    <option value="">6</option>
-                    <option value="">7</option>
-                    <option value="">8</option>
-                    <option value="">9</option>
-                    <option value="">10</option>
+                <select class="quantity quantity-${item.id}">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
                 </select>
+
+                <div class="added-to-cart added-to-cart-${item.id}"><img src="images/icons/checkmark.png" alt="checkmark">Added</div>
+                
                 <button class="add-to-cart-btn"  data-item-id='${item.id}'>Add to Cart</button>
             </div>`
 })
 
 document.querySelector('.items-container').innerHTML = itemsStr
 
-let cartFlag
 document.querySelectorAll('.add-to-cart-btn').forEach((button) => {
     button.addEventListener('click', () => {
-    
-    cart.forEach((item) => {
-        if(item.id === button.dataset.itemId){
-            item.quantity++
-            cartFlag = 1
-        }
-    })
-    
-    if(!cartFlag){
-    cart.push({
-        id: button.dataset.itemId,
-        quantity: 1
-    })
-    }
-
-    cartFlag = 0
+    addIterm(button)
     updateCart()
 })
 })

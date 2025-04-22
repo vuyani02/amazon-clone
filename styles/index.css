@@ -195,7 +195,7 @@ input:focus{
     padding: 0.2rem 0.2rem;
     border-radius: 7px;
     font-size: 1rem;
-    margin-bottom: 3rem;
+    margin-bottom: 1rem;
     cursor: pointer;
 }
 
@@ -216,4 +216,21 @@ select:focus {
 
 .add-to-cart-btn:hover{
     background-color: rgb(255, 202, 28);
+}
+
+.added-to-cart{
+    color: rgb(12, 128, 12);
+    display: flex;
+    align-items: center;
+    margin-bottom: 9px;
+    opacity: 0;
+}
+
+.added-to-cart-visible{
+    opacity: 1;
+}
+
+.added-to-cart img{
+    width: 21px;
+    margin-right: 5px;
 }
