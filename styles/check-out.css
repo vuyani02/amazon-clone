@@ -1,0 +1,25 @@
+.nav-1{
+    display: flex;
+        justify-content: center;
+
+}
+.center{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80vw;
+    height: 75px;
+}
+
+.logo {
+    width: 6rem;
+    height: 2rem;
+}
+
+.check-out{
+    font-size: 1.55rem;
+}
+
+.check-out a{
+    color: rgb(31, 126, 143);
+}
