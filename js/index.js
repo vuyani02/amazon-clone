@@ -54,3 +54,5 @@ function updateCart(){
     })
     document.querySelector('.cart-p1').textContent = cartTotal
 }
+
+console.log(cart)
