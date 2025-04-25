@@ -1,4 +1,4 @@
-import {cart} from "../data/cart.js"
+import {cart, removeCartItem} from "../data/cart.js"
 import {items} from "../data/products.js"
 import { moneyConveter } from "./utils/money.js";
 
@@ -15,7 +15,7 @@ cart.forEach(cartItem => {
 
 
         cartItemsHTML += `
-        <div class="item">
+        <div class="item item-${currentItem.id}">
             <p class="delivary-date">
                 <datetime="2025-06-21" > Delivery date: Tuesday, June 21</datetime>
             </p>
@@ -28,7 +28,7 @@ cart.forEach(cartItem => {
                     <p class="price">$${moneyConveter(currentItem.priceCents)}</p>
                     <Span>Quantity: ${cartItem.quantity}</Span>
                     <span class="update-dele">Update</span>
-                    <span class="update-dele">Delete</span>
+                    <span class="update-dele delete" data-item-id=${currentItem.id}>Delete</span>
                 </div>
 
                 <div class="delivary-option">
@@ -62,3 +62,11 @@ cart.forEach(cartItem => {
     });
     
     document.querySelector('.items').innerHTML = cartItemsHTML
+
+    document.querySelectorAll('.delete').forEach((deleteBtn) => {
+        deleteBtn.addEventListener('click', () => {
+            const itemId = deleteBtn.dataset.itemId
+            removeCartItem(itemId)
+            document.querySelector(`.item-${itemId}`).remove()
+        })
+    })
