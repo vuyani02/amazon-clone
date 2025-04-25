@@ -60,4 +60,14 @@ export function updateCart(){
         cartTotal += item.quantity
     })
     return cartTotal
-}    
+}
+
+export function updateQuantity(id, quantity){
+    for(let i = 0; i < cart.length; i++){
+        if(cart[i].id === id){
+            cart[i].quantity = quantity
+            saveToStorage()
+            break
+        }
+    }
+}

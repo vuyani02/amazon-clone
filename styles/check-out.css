@@ -63,7 +63,7 @@ main{
 }
 
 .item{
-    border: 0.1px solid rgb(231, 231, 231);
+    border: 0.1px solid rgb(224, 224, 224);
     width: 730px;
     height: 274px;
     border-radius: 4px;
@@ -74,7 +74,7 @@ main{
 .cost{
     width: 100%;
     height: 300px;
-    border: 0.1px solid rgb(231, 231, 231);
+    border: 0.1px solid rgb(224, 224, 224);
     border-radius: 4px;
 }
 
@@ -186,4 +186,31 @@ input[type=radio]{
 
 .check-out-btn:hover{
     background-color: rgb(255, 202, 28);
+}
+
+.update-input{
+    width: 30px;
+    margin-left: 3px;
+    border-radius: 3px;
+    padding: 1px 4px;
+    display: none;
+    border-width: 0.1px;
+    font-size: 1rem;
+}
+
+.save-update{
+    display: none;
+}
+
+.show-input-save{
+    display: inline;
+}
+
+.hide-update{
+    display: none;
+}
+
+input:focus {
+    border-color: rgb(255, 145, 0);
+    outline: 1px solid rgb(255, 145, 0);
 }
