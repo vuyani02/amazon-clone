@@ -1,5 +1,6 @@
 import { items } from "../data/products.js"
 import { cart, addIterm }  from "../data/cart.js"
+import { moneyConveter } from "./utils/money.js"
 
 let itemsStr = ''
 
@@ -17,7 +18,7 @@ items.forEach((item) => {
                 <span class="count">${item.rating.count}</span>
                 </div>
 
-                <p class="price">$${(item.priceCents/100).toFixed(2)}</p>
+                <p class="price">$${moneyConveter(item.priceCents)}</p>
 
                 <select class="quantity quantity-${item.id}">
                     <option value="1">1</option>
@@ -54,5 +55,3 @@ function updateCart(){
     })
     document.querySelector('.cart-p1').textContent = cartTotal
 }
-
-console.log(cart)

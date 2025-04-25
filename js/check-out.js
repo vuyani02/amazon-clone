@@ -1,5 +1,6 @@
 import {cart} from "../data/cart.js"
 import {items} from "../data/products.js"
+import { moneyConveter } from "./utils/money.js";
 
 let cartItemsHTML = ""
 
@@ -24,7 +25,7 @@ cart.forEach(cartItem => {
 
                 <div class="item-details">
                     <p class="name">${currentItem.name}</p>
-                    <p class="price">$${(currentItem.priceCents / 100).toFixed(2)}</p>
+                    <p class="price">$${moneyConveter(currentItem.priceCents)}</p>
                     <Span>Quantity: ${cartItem.quantity}</Span>
                     <span class="update-dele">Update</span>
                     <span class="update-dele">Delete</span>
@@ -34,14 +35,14 @@ cart.forEach(cartItem => {
                     <p class="delivary-option-header">Choose a delivery option:</p>
                     
                     <div class="radio">
-                    <input type="radio" name="delivary-option" id="" checked>
+                    <input type="radio" name="delivary-option-${currentItem.id}" id="" checked>
                     <div>
                     <p class="radio-p1">Tuesday, June 21</p> <p class="radio-p2">FREE Shipping</p>
                     </div>
                     </div>
                     <br>
                     <div class="radio">
-                    <input type="radio" name="delivary-option" id="">
+                    <input type="radio" name="delivary-option-${currentItem.id}" id="">
                     <div>
                     <p class="radio-p1">Wednesday, June 15</p>
                     <p class="radio-p2">$4.99 - Shipping</p>
@@ -49,7 +50,7 @@ cart.forEach(cartItem => {
                 </div>
                     <br>
                     <div class="radio">
-                    <input type="radio" name="delivary-option" id="">
+                    <input type="radio" name="delivary-option-${currentItem.id}" id="">
                     <div>
                     <p class="radio-p1">Monday, June 13</p>
                     <p class="radio-p2">$9.99 - Shipping</p>
