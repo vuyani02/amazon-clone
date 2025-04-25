@@ -1,17 +1,9 @@
-export const cart = [
-    {
-    id: '83d4ca15-0f35-48f5-b7a3-1ea210004f2e',
-    quantity: 1 
-},
-    {
-    id: '15b6fc6f-327a-4ec4-896f-486349e85a3d',
-    quantity: 2
-},
-    {
-    id: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
-    quantity: 5
+export const cart = JSON.parse(localStorage.getItem('cart'))
+
+if(!cart){
+    cart = []
 }
-]
+
 
 let cartFlag
 let classIdEl
@@ -37,6 +29,8 @@ export function addIterm(button){
         quantity: Number(classIdEl.value)
     })
 
+    saveToStorage()
+
     document.querySelector(`.added-to-cart-${button.dataset.itemId}`).classList.add('added-to-cart-visible')
     setTimeoutId = setTimeout(() => {
             document.querySelector(`.added-to-cart-${button.dataset.itemId}`).classList.remove('added-to-cart-visible')
@@ -50,7 +44,20 @@ export function removeCartItem(productId) {
     for(let i = 0; i < cart.length; i++){
         if(productId === cart[i].id){
             cart.splice(i, 1)
+            saveToStorage()
             break
         }
     }
 }
+
+function saveToStorage(){
+    localStorage.setItem('cart', JSON.stringify(cart))
+}
+
+export function updateCart(){
+    let cartTotal = 0
+    cart.forEach((item) => {
+        cartTotal += item.quantity
+    })
+    return cartTotal
+}    

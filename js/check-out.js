@@ -1,8 +1,9 @@
-import {cart, removeCartItem} from "../data/cart.js"
+import {cart, removeCartItem, updateCart} from "../data/cart.js"
 import {items} from "../data/products.js"
 import { moneyConveter } from "./utils/money.js";
 
 let cartItemsHTML = ""
+document.querySelector('.items-count').textContent = updateCart()
 
 cart.forEach(cartItem => {
         
@@ -68,5 +69,6 @@ cart.forEach(cartItem => {
             const itemId = deleteBtn.dataset.itemId
             removeCartItem(itemId)
             document.querySelector(`.item-${itemId}`).remove()
+            document.querySelector('.items-count').textContent = updateCart()
         })
     })

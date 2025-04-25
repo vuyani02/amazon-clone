@@ -1,8 +1,9 @@
 import { items } from "../data/products.js"
-import { cart, addIterm }  from "../data/cart.js"
+import { cart, addIterm, updateCart }  from "../data/cart.js"
 import { moneyConveter } from "./utils/money.js"
 
 let itemsStr = ''
+document.querySelector('.cart-p1').textContent = updateCart()
 
 items.forEach((item) => {
     itemsStr += `<div class="item-container">
@@ -44,14 +45,6 @@ document.querySelector('.items-container').innerHTML = itemsStr
 document.querySelectorAll('.add-to-cart-btn').forEach((button) => {
     button.addEventListener('click', () => {
     addIterm(button)
-    updateCart()
+    document.querySelector('.cart-p1').textContent = updateCart()
 })
 })
-
-function updateCart(){
-    let cartTotal = 0
-    cart.forEach((item) => {
-        cartTotal += item.quantity
-    })
-    document.querySelector('.cart-p1').textContent = cartTotal
-}
