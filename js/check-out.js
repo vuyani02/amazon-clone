@@ -1,6 +1,8 @@
 import {cart, removeCartItem, updateCart, updateQuantity} from "../data/cart.js"
 import {items} from "../data/products.js"
 import { moneyConveter } from "./utils/money.js";
+import { delivaryOptions } from "../data/delivary-options.js";
+// import daysjs from './lib/dayjs.min.js';
 
 let cartItemsHTML = ""
 document.querySelector('.items-count').textContent = updateCart()
@@ -13,12 +15,20 @@ cart.forEach(cartItem => {
                 currentItem = item
             }
         })
-
+        let matchingDelivaryOption
+        delivaryOptions.forEach((delivaryOption) => {
+            if(delivaryOption.id === cartItem.delivaryOptionId){
+                matchingDelivaryOption = delivaryOption
+            }
+        })
+        
+        const currentDate = dayjs()
+        const delivaryDate = currentDate.add(matchingDelivaryOption.days, 'days')
 
         cartItemsHTML += `
         <div class="item item-${currentItem.id}">
             <p class="delivary-date">
-                <datetime="2025-06-21" >Delivery date: Tuesday, June 21</datetime>
+                <datetime="2025-06-21" >Delivery date: ${delivaryDate.format("dddd, MMMM D")}</datetime>
             </p>
             <div class="item-grid">
             
@@ -36,34 +46,30 @@ cart.forEach(cartItem => {
 
                 <div class="delivary-option">
                     <p class="delivary-option-header">Choose a delivery option:</p>
-                    
-                    <div class="radio">
-                    <input type="radio" name="delivary-option-${currentItem.id}" id="" checked>
-                    <div>
-                    <p class="radio-p1">Tuesday, June 21</p> <p class="radio-p2">FREE Shipping</p>
-                    </div>
-                    </div>
-                    <br>
-                    <div class="radio">
-                    <input type="radio" name="delivary-option-${currentItem.id}" id="">
-                    <div>
-                    <p class="radio-p1">Wednesday, June 15</p>
-                    <p class="radio-p2">$4.99 - Shipping</p>
-                </div>
-                </div>
-                    <br>
-                    <div class="radio">
-                    <input type="radio" name="delivary-option-${currentItem.id}" id="">
-                    <div>
-                    <p class="radio-p1">Monday, June 13</p>
-                    <p class="radio-p2">$9.99 - Shipping</p>
-                    </div>
+                    ${delivaryOptionsHTML(currentItem, cartItem)}
                     </div>
                 </div>
-            </div>
             </div>`
     });
     
+function delivaryOptionsHTML(currentItem, cartItem){
+    let html = ''
+    delivaryOptions.forEach((delivaryOption) => {
+        const currentDate = dayjs()
+        const delivaryDate = currentDate.add(delivaryOption.days, 'days')
+        const Shipping = delivaryOption.priceCents === 0 ? 'FREE' : '$' + moneyConveter(delivaryOption.priceCents) + ' -'
+        const check = delivaryOption.id === cartItem.delivaryOptionId ? 'checked' : ''
+        html += `<div class="radio">
+                    <input type="radio" name="delivary-option-${currentItem.id}" id="" ${check}>
+                    <div>
+                    <p class="radio-p1">${delivaryDate.format("dddd, MMMM D")}</p> 
+                    <p class="radio-p2">${Shipping} Shipping</p>
+                    </div>
+                </div>
+                <br>`        
+    }) 
+    return html       
+}    
 document.querySelector('.items').innerHTML = cartItemsHTML
 
 document.querySelectorAll('.delete').forEach((deleteBtn) => {

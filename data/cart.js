@@ -1,4 +1,4 @@
-export const cart = JSON.parse(localStorage.getItem('cart'))
+export let cart = JSON.parse(localStorage.getItem('cart'))
 
 if(!cart){
     cart = []
@@ -26,7 +26,8 @@ export function addIterm(button){
     if(!cartFlag){
     cart.push({
         id: button.dataset.itemId,
-        quantity: Number(classIdEl.value)
+        quantity: Number(classIdEl.value),
+        delivaryOptionId: '1'
     })
 
     saveToStorage()

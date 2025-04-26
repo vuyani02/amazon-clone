@@ -93,6 +93,7 @@ main{
 
 .item-grid img{
     width: 95px;
+    max-height: 200px;
 }
 
 .name{
@@ -135,6 +136,7 @@ input[type=radio]{
 .radio-p1{
     color: rgb(24, 129, 24);
     margin-bottom: 5px;
+    font-weight: 600;
 }
 
 .radio-p2{
