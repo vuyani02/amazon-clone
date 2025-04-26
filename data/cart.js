@@ -72,3 +72,13 @@ export function updateQuantity(id, quantity){
         }
     }
 }
+
+export function updateDelivaryOption(productId, delivaryOptionId){
+    for(let i = 0; i < cart.length; i++){
+        if(cart[i].id === productId){
+            cart[i].delivaryOptionId = delivaryOptionId
+            saveToStorage()
+            break
+        }
+    }
+}

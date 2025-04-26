@@ -1,8 +1,7 @@
-import {cart, removeCartItem, updateCart, updateQuantity} from "../data/cart.js"
+import {cart, removeCartItem, updateCart, updateQuantity, updateDelivaryOption} from "../data/cart.js"
 import {items} from "../data/products.js"
 import { moneyConveter } from "./utils/money.js";
 import { delivaryOptions } from "../data/delivary-options.js";
-// import daysjs from './lib/dayjs.min.js';
 
 let cartItemsHTML = ""
 document.querySelector('.items-count').textContent = updateCart()
@@ -15,6 +14,7 @@ cart.forEach(cartItem => {
                 currentItem = item
             }
         })
+
         let matchingDelivaryOption
         delivaryOptions.forEach((delivaryOption) => {
             if(delivaryOption.id === cartItem.delivaryOptionId){
@@ -59,7 +59,7 @@ function delivaryOptionsHTML(currentItem, cartItem){
         const delivaryDate = currentDate.add(delivaryOption.days, 'days')
         const Shipping = delivaryOption.priceCents === 0 ? 'FREE' : '$' + moneyConveter(delivaryOption.priceCents) + ' -'
         const check = delivaryOption.id === cartItem.delivaryOptionId ? 'checked' : ''
-        html += `<div class="radio">
+        html += `<div class="radio" data-item-id=${cartItem.id} data-delivary-option-id=${delivaryOption.id}>
                     <input type="radio" name="delivary-option-${currentItem.id}" id="" ${check}>
                     <div>
                     <p class="radio-p1">${delivaryDate.format("dddd, MMMM D")}</p> 
@@ -106,5 +106,12 @@ document.querySelectorAll('.save-update').forEach((saveBtn) => {
         document.querySelector(`.save-update-${itemId}`).classList.remove('show-input-save')
         document.querySelector(`.update-${itemId}`).classList.remove('hide-update')
         document.querySelector(`.value-${itemId}`).classList.remove('hide-update')
+    })
+})
+
+document.querySelectorAll('.radio').forEach((delivaryOption) => {
+    delivaryOption.addEventListener('click', () => {
+        const { itemId, delivaryOptionId} = delivaryOption.dataset
+        updateDelivaryOption(itemId, delivaryOptionId)
     })
 })
