@@ -131,6 +131,7 @@ input[type=radio]{
 .radio{
     display: flex;
     align-items: center;
+    cursor: pointer;
 }
 
 .radio-p1{
