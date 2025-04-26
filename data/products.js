@@ -1,3 +1,13 @@
+export function getItem(itemId){
+  let currentItem
+    items.forEach((item) => {
+        if(item.id === itemId){
+            currentItem = item
+        }
+    })
+    return currentItem
+}
+
 export const items = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
