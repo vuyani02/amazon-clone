@@ -1,25 +1,24 @@
 import {cart, removeCartItem, updateCart, updateQuantity, updateDelivaryOption} from "../../data/cart.js"
 import {items, getItem} from "../../data/products.js"
 import { moneyConveter } from "../utils/money.js";
-import { delivaryOptions } from "../../data/delivary-options.js";
+import { delivaryOptions, getDelivaryOption, calculateDelivaryDate } from "../../data/delivary-options.js";
+import { renderpayment } from "./payment.js";
+import isSutSun from "../utils/date.js";
 
+const date = dayjs().add(1, 'days')
+
+console.log(isSutSun(date))
 export default function renderPage(){
     let cartItemsHTML = ""
     document.querySelector('.items-count').textContent = updateCart()
 
     cart.forEach(cartItem => {
             
-            let currentItem = getItem(cartItem.id)
+            const currentItem = getItem(cartItem.id)
             
-            let matchingDelivaryOption
-            delivaryOptions.forEach((delivaryOption) => {
-                if(delivaryOption.id === cartItem.delivaryOptionId){
-                    matchingDelivaryOption = delivaryOption
-                }
-            })
+            const matchingDelivaryOption = getDelivaryOption(cartItem.delivaryOptionId)
             
-            const currentDate = dayjs()
-            const delivaryDate = currentDate.add(matchingDelivaryOption.days, 'days')
+            const delivaryDate = calculateDelivaryDate(matchingDelivaryOption)
 
             cartItemsHTML += `
             <div class="item item-${currentItem.id}">
@@ -51,8 +50,7 @@ export default function renderPage(){
     function delivaryOptionsHTML(currentItem, cartItem){
         let html = ''
         delivaryOptions.forEach((delivaryOption) => {
-            const currentDate = dayjs()
-            const delivaryDate = currentDate.add(delivaryOption.days, 'days')
+            const delivaryDate = calculateDelivaryDate(delivaryOption)
             const Shipping = delivaryOption.priceCents === 0 ? 'FREE' : '$' + moneyConveter(delivaryOption.priceCents) + ' -'
             const check = delivaryOption.id === cartItem.delivaryOptionId ? 'checked' : ''
             html += `<div class="radio" data-item-id=${cartItem.id} data-delivary-option-id=${delivaryOption.id}>
@@ -72,8 +70,10 @@ export default function renderPage(){
         deleteBtn.addEventListener('click', () => {
             const itemId = deleteBtn.dataset.itemId
             removeCartItem(itemId)
-            document.querySelector(`.item-${itemId}`).remove()
-            document.querySelector('.items-count').textContent = updateCart()
+            //document.querySelector(`.item-${itemId}`).remove()
+            //document.querySelector('.items-count').textContent = updateCart()
+            renderpayment()
+            renderPage()
         })
     })
 
@@ -102,6 +102,7 @@ export default function renderPage(){
             document.querySelector(`.save-update-${itemId}`).classList.remove('show-input-save')
             document.querySelector(`.update-${itemId}`).classList.remove('hide-update')
             document.querySelector(`.value-${itemId}`).classList.remove('hide-update')
+            renderpayment()
         })
     })
 
@@ -110,6 +111,7 @@ export default function renderPage(){
             const { itemId, delivaryOptionId} = delivaryOption.dataset
             updateDelivaryOption(itemId, delivaryOptionId)
             renderPage()
+            renderpayment()
         })
     })
 }

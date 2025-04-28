@@ -8,9 +8,15 @@ if(!cart){
 let cartFlag
 let classIdEl
 let setTimeoutId = 1
+let prevBtn = ''
+let currBtn = ''
 
 export function addIterm(button){
-    clearTimeout(setTimeoutId)
+    currBtn = button.dataset.itemId
+    if(prevBtn === currBtn){
+        clearTimeout(setTimeoutId)
+    } 
+    prevBtn = currBtn
     classIdEl = document.querySelector(`.quantity-${button.dataset.itemId}`)    
     cart.forEach((item) => {
         if(item.id === button.dataset.itemId){

@@ -72,10 +72,14 @@ main{
 }
 
 .cost{
-    width: 100%;
+    width: 356.19px;
     height: 300px;
     border: 0.1px solid rgb(224, 224, 224);
     border-radius: 4px;
+    padding: 20px 18px;
+    position: fixed;
+    top: auto;
+    left: 873px;
 }
 
 .delivary-date{
@@ -148,10 +152,6 @@ input[type=radio]{
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
-}
-
-.cost{
-    padding: 20px 18px;
 }
 
 .cost-header{
