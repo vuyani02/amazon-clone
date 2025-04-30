@@ -4,7 +4,6 @@ import { getItem } from "../data/products.js"
 import { moneyConveter } from "./utils/money.js"
 
 updateOrders()
-console.log(localStorage.getItem('readCart'))
 
 document.querySelector('.cart-p1').textContent = updateCart()
 
