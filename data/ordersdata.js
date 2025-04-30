@@ -7,8 +7,8 @@ const idChecker = localStorage.getItem('Idcount') || 0
 
 if(!idChecker){
     localStorage.setItem('Idcount', '0')
-
 }
+
 const templateId = '27cba69d-4c3d-4098-b42d-ac7fa62b766'
 export function updateOrders(){
     const id = idGenerator()
@@ -34,7 +34,7 @@ export function updateOrders(){
         const totalCostBeforeTax = totalCostCents + totalShippingCents
         const taxCents = totalCostBeforeTax * 0.1
         const totalCost = totalCostBeforeTax + taxCents
-    orders.push({
+    orders.unshift({
         id,
         totalCost,
         datePlaced,
@@ -45,6 +45,8 @@ export function updateOrders(){
 
 function saveOrdersToStorage(){
     localStorage.setItem('orders', JSON.stringify(orders))
+    localStorage.removeItem('cart')
+    localStorage.setItem('readCart', 'no')
 }
 
 function idGenerator(){

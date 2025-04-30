@@ -3,11 +3,8 @@ import {items, getItem} from "../../data/products.js"
 import { moneyConveter } from "../utils/money.js";
 import { delivaryOptions, getDelivaryOption, calculateDelivaryDate } from "../../data/delivary-options.js";
 import { renderpayment } from "./payment.js";
-import isSutSun from "../utils/date.js";
 
-const date = dayjs().add(1, 'days')
 
-console.log(isSutSun(date))
 export default function renderPage(){
     let cartItemsHTML = ""
     document.querySelector('.items-count').textContent = updateCart()
