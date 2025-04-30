@@ -38,5 +38,9 @@ export function renderpayment(){
 
                 <button class="check-out-btn">Place your order</button>`
 
-    document.querySelector('.cost').innerHTML = html            
+    document.querySelector('.cost').innerHTML = html
+    document.querySelector('.check-out-btn').addEventListener('click', () => {
+        localStorage.setItem('readCart', 'yes')
+        window.location = 'orders.html'
+    })            
 }
