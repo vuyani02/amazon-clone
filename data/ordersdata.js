@@ -13,13 +13,17 @@ const templateId = '27cba69d-4c3d-4098-b42d-ac7fa62b766'
 export function updateOrders(){
     const id = idGenerator()
     const datePlaced = dayjs().format('MMMM, D')
-    let totalCost = 0
     let items = []
     let delivaryOption
     let arrivalDate
+    
+    let totalCostCents = 0
+    let totalShippingCents = 0
+    
     cart.forEach(element => {
-            totalCost += element.quantity * getItem(element.id).priceCents
+            totalCostCents += element.quantity * getItem(element.id).priceCents
             delivaryOption = getDelivaryOption(element.delivaryOptionId)
+            totalShippingCents += delivaryOption.priceCents
             arrivalDate = calculateDelivaryDate(delivaryOption).format('MMMM, D')
             items.push({
                 id: element.id,
@@ -27,6 +31,9 @@ export function updateOrders(){
                 quantity: element.quantity
             })
         });
+        const totalCostBeforeTax = totalCostCents + totalShippingCents
+        const taxCents = totalCostBeforeTax * 0.1
+        const totalCost = totalCostBeforeTax + taxCents
     orders.push({
         id,
         totalCost,
@@ -34,7 +41,6 @@ export function updateOrders(){
         items
     })  
     saveOrdersToStorage()
-
 }
 
 function saveOrdersToStorage(){
