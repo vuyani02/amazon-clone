@@ -2,6 +2,7 @@ import { updateCart } from "../data/cart.js"
 import { orders } from "../data/ordersdata.js"
 import { getItem } from "../data/products.js"
 
+let gaugeLevel
 function renderPage(){
     document.querySelector('.cart-p1').textContent = updateCart()
     let quantity = 0
@@ -31,9 +32,27 @@ function renderPage(){
                         <p>Delivered</p>
                     </div>
                     <div class="gauge-container">
-                        <div class="gauge"></div>
+                        <div class="gauge" ${gaugeLevel}></div>
                     </div>`
-    document.querySelector('.item-tracker').innerHTML = html                
+    document.querySelector('.item-tracker').innerHTML = html               
 }
 
 renderPage()
+
+
+function gaugeGenerator(){
+    let increment =  0
+    
+    let id 
+    id = setInterval(() => {
+        increment += 1
+        gaugeLevel = `style="width: ${increment}%"`
+        renderPage()
+    }, 300)
+
+    setTimeout(() => {
+        clearInterval(id)
+    }, 30000)
+}
+
+gaugeGenerator() 
