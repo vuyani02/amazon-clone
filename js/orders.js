@@ -85,9 +85,8 @@ function renderPage(){
                 })
             
                 localStorage.setItem('cart', JSON.stringify(cart))
+                renderPage()
             }
-            
-            window.location = 'check-out.html'
         })
     });
 }
