@@ -88,3 +88,8 @@ export function updateDelivaryOption(productId, delivaryOptionId){
         }
     }
 }
+
+export function clearCart(){
+    cart = []
+    localStorage.removeItem('cart')
+}

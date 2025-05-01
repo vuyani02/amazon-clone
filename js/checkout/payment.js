@@ -40,7 +40,10 @@ export function renderpayment(){
 
     document.querySelector('.cost').innerHTML = html
     document.querySelector('.check-out-btn').addEventListener('click', () => {
-        localStorage.setItem('readCart', 'yes')
-        window.location = 'orders.html'
+        if(cart.length > 0){
+            localStorage.setItem('readCart', 'yes')
+            window.location = 'orders.html'
+        }
+        
     })            
 }

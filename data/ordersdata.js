@@ -45,7 +45,6 @@ export function updateOrders(){
 
 function saveOrdersToStorage(){
     localStorage.setItem('orders', JSON.stringify(orders))
-    localStorage.removeItem('cart')
     localStorage.setItem('readCart', 'no')
 }
 

@@ -1,17 +1,16 @@
-import { updateCart, cart } from "../data/cart.js"
+import { updateCart, cart, clearCart } from "../data/cart.js"
 import { orders, updateOrders } from "../data/ordersdata.js"
 import { getItem } from "../data/products.js"
 import { moneyConveter } from "./utils/money.js"
 
 function renderPage(){
-
     document.querySelector('.cart-p1').textContent = updateCart()
     const readCart = localStorage.getItem('readCart')
 
-    if(readCart === 'yes' && cart.length > 0){
+    if(readCart === 'yes'){
         updateOrders()
-        document.querySelector('.cart-p1').textContent = 0
-        console.log(updateCart())
+        clearCart()
+        renderPage()
     }
 
     let html =``
@@ -29,7 +28,7 @@ function renderPage(){
                     <p class="name">${item.name}</p>
                     <p>Arriving on: ${itemOrder.arrivalDate}</p>
                     <p class="quantity-order">Quantity: ${itemOrder.quantity}</p>
-                    <button class="buy-again">
+                    <button class="buy-again" data-item-id=${item.id}>
                     <img src="images/icons/buy-again.png" alt="buy again">Buy it again
                     </button>
                 </div>
@@ -66,6 +65,31 @@ function renderPage(){
     })
 
     document.querySelector('.order').innerHTML = html
+
+    document.querySelectorAll('.buy-again').forEach(element => {
+        element.addEventListener('click', () => {
+                let cartFlag = 0
+    
+                cart.forEach((item) => {
+                    if(item.id === element.dataset.itemId){
+                        item.quantity += 1
+                        cartFlag = 1
+                    }
+                })
+                
+                if(!cartFlag){
+                cart.push({
+                    id: element.dataset.itemId,
+                    quantity: 1,
+                    delivaryOptionId: '1'
+                })
+            
+                localStorage.setItem('cart', JSON.stringify(cart))
+            }
+            
+            window.location = 'check-out.html'
+        })
+    });
 }
 
 renderPage()

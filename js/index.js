@@ -4,8 +4,14 @@ import { moneyConveter } from "./utils/money.js"
 
 let itemsStr = ''
 document.querySelector('.cart-p1').textContent = updateCart()
+let search = new URL(window.location.href).searchParams.get('search')
+
+if(search){
+    search = search.toLowerCase()
+}
 
 items.forEach((item) => {
+    if(item.name.toLowerCase() === search || !search || item.keywords.includes(search)){
     itemsStr += `<div class="item-container">
                 
                 <div class="img-container">
@@ -38,6 +44,7 @@ items.forEach((item) => {
                 
                 <button class="add-to-cart-btn"  data-item-id='${item.id}'>Add to Cart</button>
             </div>`
+    }
 })
 
 document.querySelector('.items-container').innerHTML = itemsStr
@@ -47,4 +54,12 @@ document.querySelectorAll('.add-to-cart-btn').forEach((button) => {
     addIterm(button)
     document.querySelector('.cart-p1').textContent = updateCart()
 })
+})
+
+document.querySelector('.search-icon').addEventListener('click', () => {
+    document.querySelector('.search-bar').value
+
+    if(document.querySelector('.search-bar').value){
+        window.location = `index.html?search=${document.querySelector('.search-bar').value}`
+    }
 })
